@@ -10,7 +10,7 @@ import (
 func Run(part string) {
 	if part == "1" {
 		partOne()
-	} else {
+	} else if part == "2" {
 		partTwo()
 	}
 }

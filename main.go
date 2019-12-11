@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/michaelweidmann/advent-of-code-2019/day01"
+	"github.com/michaelweidmann/advent-of-code-2019/day02"
 )
 
 func main() {
@@ -21,6 +22,9 @@ func main() {
 	switch dayNumber {
 	case 1:
 		day01.Run(arguments[2])
+		break
+	case 2:
+		day02.Run(arguments[2])
 		break
 	default:
 		printUsage(arguments[0])

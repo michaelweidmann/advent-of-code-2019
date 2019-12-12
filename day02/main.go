@@ -1,11 +1,7 @@
 package day02
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strconv"
-	"strings"
 	"time"
 
 	"github.com/michaelweidmann/advent-of-code-2019/util"
@@ -19,6 +15,10 @@ func Run(part string) {
 	}
 }
 
+/*---------------------------------------------------------------------*/
+/*                         		Part 1		                           */
+/*---------------------------------------------------------------------*/
+
 func partOne() {
 	defer util.TimeTrack(time.Now())
 	intcodes := parseFile()
@@ -27,15 +27,22 @@ func partOne() {
 	fmt.Printf("Solution: %d\n", runProgram(intcodes))
 }
 
+/*---------------------------------------------------------------------*/
+/*                         		Part 2		                           */
+/*---------------------------------------------------------------------*/
+
+// The input allows to calculate the noun first and then the verb
+// This is due to the big jumps of the result when the noun is increased
+// When increasing the verb the result does small steps
+// So first the noun is raised to about a correct solution.
+// Then a "small" correction is made by adjusting the value of the verb.
 func partTwo() {
 	defer util.TimeTrack(time.Now())
 	intcodes := parseFile()
 
 	tmpIntcodes := make([]int, len(intcodes))
 
-	var noun int = 0
-	var verb int = 0
-
+	noun, verb := 0, 0
 	calculateNoun(intcodes, tmpIntcodes, &noun, &verb)
 	calculateVerb(intcodes, tmpIntcodes, &noun, &verb)
 
@@ -63,65 +70,4 @@ func calculateVerb(intcodes []int, tmpIntcodes []int, noun *int, verb *int) {
 			break
 		}
 	}
-}
-
-/*---------------------------------------------------------------------*/
-/*                         Util Function(s)	                           */
-/*---------------------------------------------------------------------*/
-
-func initializeMemory(noun int, verb int, intcodes []int) {
-	intcodes[1] = noun
-	intcodes[2] = verb
-}
-
-func runProgram(intcodes []int) int {
-ProgramLoop:
-	for i := 0; i < len(intcodes); i += 4 {
-		instruction := intcodes[i]
-		firstAddress := intcodes[i+1]
-		secondAddress := intcodes[i+2]
-		resultAddress := intcodes[i+3]
-
-		switch instruction {
-		case 1:
-			intcodes[resultAddress] = add(firstAddress, secondAddress, intcodes)
-			break
-		case 2:
-			intcodes[resultAddress] = mutliply(firstAddress, secondAddress, intcodes)
-			break
-		case 99:
-			// fmt.Println("Program finished.")
-			break ProgramLoop
-		default:
-			panic("Invalid program.")
-		}
-	}
-
-	return intcodes[0]
-}
-
-func add(firstAddress int, secondAddress int, intcodes []int) int {
-	return intcodes[firstAddress] + intcodes[secondAddress]
-}
-
-func mutliply(firstAddress int, secondAddress int, intcodes []int) int {
-	return intcodes[firstAddress] * intcodes[secondAddress]
-}
-
-func parseFile() []int {
-	file, _ := os.Open("day02/input.txt")
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	scanner.Scan()
-
-	stringIntcodes := strings.Split(scanner.Text(), ",")
-	var intcodes = []int{}
-
-	for _, stringIntcode := range stringIntcodes {
-		intcode, _ := strconv.Atoi(stringIntcode)
-		intcodes = append(intcodes, intcode)
-	}
-
-	return intcodes
 }

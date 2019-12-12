@@ -3,8 +3,10 @@ package day01
 import (
 	"bufio"
 	"fmt"
+	"github.com/michaelweidmann/advent-of-code-2019/util"
 	"os"
 	"strconv"
+	"time"
 )
 
 func Run(part string) {
@@ -16,6 +18,8 @@ func Run(part string) {
 }
 
 func partOne() {
+	defer util.TimeTrack(time.Now())
+
 	file, _ := os.Open("day01/input.txt")
 	defer file.Close()
 
@@ -31,6 +35,8 @@ func partOne() {
 }
 
 func partTwo() {
+	defer util.TimeTrack(time.Now())
+
 	file, _ := os.Open("day01/input.txt")
 	defer file.Close()
 
@@ -45,7 +51,7 @@ func partTwo() {
 		}
 	}
 
-	fmt.Printf("Solution: %d", sum)
+	fmt.Printf("Solution: %d\n", sum)
 }
 
 /*---------------------------------------------------------------------*/

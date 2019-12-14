@@ -7,6 +7,7 @@ import (
 
 	"github.com/michaelweidmann/advent-of-code-2019/day01"
 	"github.com/michaelweidmann/advent-of-code-2019/day02"
+	"github.com/michaelweidmann/advent-of-code-2019/day03"
 )
 
 func main() {
@@ -25,6 +26,9 @@ func main() {
 		break
 	case 2:
 		day02.Run(arguments[2])
+		break
+	case 3:
+		day03.Run(arguments[2])
 		break
 	default:
 		printUsage(arguments[0])
